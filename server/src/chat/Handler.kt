@@ -5,14 +5,16 @@ import io.ktor.http.cio.websocket.*
 class Handler(private val connection: DefaultWebSocketSession) {
     suspend fun onNewConnection() {
         connection.send(Frame.Text("Welcome to Chat"))
+        ConnectionsManager.addConnection(connection)
     }
 
     fun onConnectionClosed() {
+        ConnectionsManager.removeConnection(connection)
     }
 
     suspend fun onMessageReceived(frame: Frame) {
         if (frame is Frame.Text) {
-            connection.send(Frame.Text("Client said: " + frame.readText()))
+            ConnectionsManager.broadcastMessage("Client said: " + frame.readText())
         }
     }
 }
