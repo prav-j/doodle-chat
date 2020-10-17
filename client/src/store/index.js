@@ -3,11 +3,11 @@ import reducers from './reducers';
 import socketMiddleware from '../middlewares/socket'
 
 export default () => {
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const middlewares = [socketMiddleware()]
   return createStore(reducers,
-    compose(
+    composeEnhancers(
       applyMiddleware(...middlewares),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
   )
 }
