@@ -15,7 +15,8 @@ export default () => {
   }, [])
 
   const onSendMessage = () => {
-    sendMessage(message)
+    dispatch(sendMessage(message))
+    setMessage('')
   }
 
   return <>
