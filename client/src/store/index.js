@@ -1,6 +1,13 @@
-import {createStore} from 'redux'
+import {applyMiddleware, compose, createStore} from 'redux'
 import reducers from './reducers';
+import socketMiddleware from '../middlewares/socket'
 
 export default () => {
-  return createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  const middlewares = [socketMiddleware()]
+  return createStore(reducers,
+    compose(
+      applyMiddleware(...middlewares),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+  )
 }
