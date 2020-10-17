@@ -42,7 +42,9 @@ export default () => {
         console.log('Disconnected')
         break;
       case chatActions.TYPES.sendMessage:
-        socket.send(action.payload);
+        if (socket !== null) {
+          socket.send(action.payload);
+        }
         break;
       default:
         return next(action);
