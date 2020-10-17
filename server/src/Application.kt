@@ -1,6 +1,7 @@
 package com.praveen.doodle
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.praveen.doodle.chat.initializeChatSocketHandler
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.client.*
@@ -21,8 +22,6 @@ import java.time.Duration
 fun main() {
     embeddedServer(
         Netty,
-        watchPaths = listOf("server"),
-        port = 8080,
         module = Application::module
     ).apply { start(wait = true) }
 }
@@ -67,18 +66,6 @@ fun Application.module() {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 
-        webSocket("/chat/echo") {
-            send(Frame.Text("Hi from server"))
-            while (true) {
-                val frame = incoming.receive()
-                if (frame is Frame.Text) {
-                    send(Frame.Text("Client said: " + frame.readText()))
-                }
-            }
-        }
-
-        get("/json/jackson") {
-            call.respond(mapOf("hello" to "world"))
-        }
+        initializeChatSocketHandler()
     }
 }
