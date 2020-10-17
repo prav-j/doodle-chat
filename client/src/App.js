@@ -1,11 +1,10 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import Messages from "./components/Messages";
+import Messaging from "./components/Messaging";
 
 const App = () =>
   <div className="App">
-    <h1>Hello, World.</h1>
-    <Messages/>
+    <Messaging/>
   </div>
 
 export default hot(module)(App);
