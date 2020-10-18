@@ -4,7 +4,7 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 import java.util.*
 
 data class User(
-    val id: UUID,
+    val id: UUID?,
     val username: String,
     val password: String?,
 )
