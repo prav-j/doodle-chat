@@ -4,9 +4,13 @@ import * as chatActions from "../store/chat/actions";
 const HOST = 'ws://localhost:8080/chat'
 export default () => {
   let socket = null;
+  const pendingMessages = []
 
   const onOpen = store => (event) => {
-    console.log('Websocket open:', event.target.url);
+    console.log('Websocket open');
+    while (pendingMessages.length) {
+      socket.send(pendingMessages.shift())
+    }
     store.dispatch(socketActions.onSocketConnected(event.target.url));
   };
 
@@ -17,37 +21,42 @@ export default () => {
 
   const onMessage = store => (event) => {
     const receivedMessage = event.data;
-    console.log('Received server message:', event);
     store.dispatch(chatActions.messageReceived(receivedMessage))
   };
+
+  const prepareSocket = (store) => {
+    if (socket !== null && socket.readyState <= 1) {
+      return true
+    }
+    socket = new WebSocket(HOST);
+    socket.onmessage = onMessage(store);
+    socket.onclose = onClose(store);
+    socket.onopen = onOpen(store);
+    return false
+  }
 
   return store => next => action => {
     switch (action.type) {
       case socketActions.TYPES.connectSocket:
-        if (socket !== null) {
-          console.log('Already connected')
-          break;
-        }
-
-        socket = new WebSocket(HOST);
-        socket.onmessage = onMessage(store);
-        socket.onclose = onClose(store);
-        socket.onopen = onOpen(store);
+        prepareSocket(store)
         break;
       case socketActions.TYPES.disconnectSocket:
         if (socket !== null) {
           socket.close();
         }
         socket = null;
-        console.log('Disconnected')
         break;
       case chatActions.TYPES.sendMessage:
-        if (socket !== null) {
-          socket.send(JSON.stringify({
-            type: 'NEW_MESSAGE',
-            from: store.getState().user.username,
-            data: action.payload
-          }))
+        const isReady = prepareSocket(store)
+        const message = JSON.stringify({
+          type: 'NEW_MESSAGE',
+          from: store.getState().user.username || "anonymous",
+          data: action.payload
+        });
+        if (isReady) {
+          socket.send(message)
+        } else {
+          pendingMessages.push(message)
         }
         break;
       default:
