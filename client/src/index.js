@@ -7,7 +7,7 @@ import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 
 const store = createStore()
 
-const theme = {palette: {primary: {main: '#2372e8'}}};
+const theme = {palette: { type: 'dark', primary: {main: '#2372e8'}}};
 
 // render the app
 const App = () => {
