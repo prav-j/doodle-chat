@@ -52,7 +52,13 @@ fun Application.module() {
         install(JsonFeature) {
             serializer = GsonSerializer()
         }
+        install(CORS) {
+            anyHost()
+            header(HttpHeaders.Authorization)
+            header(HttpHeaders.ContentType)
+        }
     }
+
     runBlocking {
         // Sample for making a HTTP Client request
         /*
