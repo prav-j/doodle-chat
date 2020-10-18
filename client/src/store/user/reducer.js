@@ -7,9 +7,9 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPES.signupUser:
       return update(state, {$set: {loading: true}})
-    case TYPES.userSignedUp:
+    case TYPES.userLoggedIn:
       return update(state, {$set: {token: action.payload}})
-    case TYPES.userSignUpFailed:
+    case TYPES.userLoginFailed:
       return update(state, {$set: {error: action.payload}})
     default:
       return state

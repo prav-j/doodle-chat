@@ -1,9 +1,11 @@
 export const TYPES = {
   signupUser: 'user/SIGN_UP',
-  userSignedUp: 'user/SIGN_UP_COMPLETE',
-  userSignUpFailed: 'user/SIGN_UP_ERROR',
+  loginUser: 'user/LOGIN',
+  userLoggedIn: 'user/LOG_IN_COMPLETE',
+  userLoginFailed: 'user/LOG_IN_ERROR',
 }
 
 export const signupUser = (username, password) => ({type: TYPES.signupUser, payload: {username, password}})
-export const userSignedUp = (token) => ({type: TYPES.userSignedUp, payload: token})
-export const userSignUpFailed = (error) => ({type: TYPES.userSignUpFailed, payload: error})
+export const loginUser = (username, password) => ({type: TYPES.loginUser, payload: {username, password}})
+export const userLoggedIn = (token) => ({type: TYPES.userLoggedIn, payload: token})
+export const userLoginFailed = (error) => ({type: TYPES.userLoginFailed, payload: error})

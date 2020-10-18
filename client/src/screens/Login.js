@@ -4,7 +4,7 @@ import {Alert} from "@material-ui/lab";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import {useDispatch, useSelector} from "react-redux";
-import {signupUser} from "../store/user/actions";
+import {loginUser, signupUser} from "../store/user/actions";
 
 const styles = {
   container: {
@@ -36,6 +36,7 @@ export default () => {
   const [password, setPassword] = useState('')
   const error = useSelector(state => state.user.error)
   const dispatch = useDispatch()
+
   return <>
     <Box style={styles.container}>
       <TextField
@@ -57,7 +58,7 @@ export default () => {
       </Alert>
       <Box style={styles.horizontalGroup}>
         <Button variant="contained" onClick={() => dispatch(signupUser(username, password))}>Sign up</Button>
-        <Button variant="contained">Login</Button>
+        <Button variant="contained" onClick={() => dispatch(loginUser(username, password))}>Login</Button>
       </Box>
     </Box>
   </>
