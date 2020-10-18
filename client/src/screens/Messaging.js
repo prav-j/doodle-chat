@@ -1,6 +1,6 @@
 import React from "react";
-import Messages from "./Messages";
-import SendMessage from "./SendMessage";
+import Messages from "../components/Messages";
+import SendMessage from "../components/SendMessage";
 
 export default () => {
   return <>

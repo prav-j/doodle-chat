@@ -7,13 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginUser, signupUser} from "../store/user/actions";
 
 const styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: '75vh'
-  },
   field: {
     width: '50%'
   },
@@ -38,28 +31,26 @@ export default () => {
   const dispatch = useDispatch()
 
   return <>
-    <Box style={styles.container}>
-      <TextField
-        style={{...styles.field, ...styles.usernameField}}
-        label="Username"
-        variant="outlined"
-        helperText="What should others call you?"
-        value={username}
-        onChange={(event) => setUsername(event.target.value)}/>
-      <TextField
-        style={{...styles.field, ...styles.passwordField}}
-        label="Your password"
-        variant="outlined"
-        helperText="Enter your password, or pick one if you're new"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}/>
-      <Alert style={{...styles.errorField, ...(error ? {} : styles.hidden)}} severity="error">
-        {error}
-      </Alert>
-      <Box style={styles.horizontalGroup}>
-        <Button variant="contained" onClick={() => dispatch(signupUser(username, password))}>Sign up</Button>
-        <Button variant="contained" onClick={() => dispatch(loginUser(username, password))}>Login</Button>
-      </Box>
+    <TextField
+      style={{...styles.field, ...styles.usernameField}}
+      label="Username"
+      variant="outlined"
+      helperText="What should others call you?"
+      value={username}
+      onChange={(event) => setUsername(event.target.value)}/>
+    <TextField
+      style={{...styles.field, ...styles.passwordField}}
+      label="Your password"
+      variant="outlined"
+      helperText="Enter your password, or pick one if you're new"
+      value={password}
+      onChange={(event) => setPassword(event.target.value)}/>
+    <Alert style={{...styles.errorField, ...(error ? {} : styles.hidden)}} severity="error">
+      {error}
+    </Alert>
+    <Box style={styles.horizontalGroup}>
+      <Button variant="contained" onClick={() => dispatch(signupUser(username, password))}>Sign up</Button>
+      <Button variant="contained" onClick={() => dispatch(loginUser(username, password))}>Login</Button>
     </Box>
   </>
 }
