@@ -2,6 +2,7 @@ package com.praveen.doodle
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.praveen.doodle.chat.initializeChatSocketHandler
+import com.praveen.doodle.database.Database
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.client.*
@@ -60,6 +61,8 @@ fun Application.module() {
         }
         */
     }
+
+    Database.init()
 
     routing {
         get("/") {
