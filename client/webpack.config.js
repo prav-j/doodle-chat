@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = (env, argv) => {
   const dev = argv.mode === 'development';
 
-  const plugins = [new HtmlWebpackPlugin()];
+  const plugins = [new HtmlWebpackPlugin({template: 'public/index.html'})];
 
   if (dev) {
     plugins.push(new webpack.HotModuleReplacementPlugin());

@@ -3,16 +3,18 @@ import ReactDOM from 'react-dom';
 import Application from './App';
 import {Provider} from "react-redux";
 import createStore from './store'
-
-const body = document.getElementsByTagName('body')[0];
-const root = document.createElement('div');
-root.id = 'root';
-body.appendChild(root);
+import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 
 const store = createStore()
 
+const theme = {palette: {primary: {main: '#2372e8'}}};
+
 // render the app
-const App = () => <Provider store={store}>
-  <Application/>
-</Provider>
-ReactDOM.render(<App/>, root);
+const App = () => {
+  return <Provider store={store}>
+    <ThemeProvider theme={createMuiTheme(theme)}>
+      <Application/>
+    </ThemeProvider>
+  </Provider>;
+}
+ReactDOM.render(<App/>, document.getElementById('root'));
