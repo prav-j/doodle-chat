@@ -2,6 +2,7 @@ package com.praveen.doodle.database
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -14,6 +15,10 @@ object Database {
             user = dbConfig.user,
             password = dbConfig.password
         )
+        Flyway.configure()
+            .dataSource(dbConfig.url, dbConfig.user, dbConfig.password)
+            .load()
+            .migrate()
     }
 
     suspend fun <T> dbQuery(block: () -> T): T =
