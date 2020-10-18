@@ -4,6 +4,8 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Messaging from "./screens/Messaging";
 import Box from "@material-ui/core/Box";
+import {useSelector} from "react-redux";
+import Login from "./screens/Login";
 
 const styles = {
   root: {
@@ -26,7 +28,6 @@ const styles = {
 }
 
 const App = () => {
-  const theme = useTheme()
   const token = useSelector(state => state.user.token)
 
   return <div style={styles.root}>

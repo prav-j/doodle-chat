@@ -35,14 +35,14 @@ export const loginUser = ({username, password}) => {
     .then(handleLoginResponse)
 }
 
-
 export default store => next => action => {
   switch (action.type) {
     case TYPES.signupUser:
-      return signupUser(action.payload).then(action => store.dispatch(action))
+      signupUser(action.payload).then(action => store.dispatch(action))
+      break
     case TYPES.loginUser:
-      return loginUser(action.payload).then(action => store.dispatch(action))
-    default:
-      next(action)
+      loginUser(action.payload).then(action => store.dispatch(action))
+      break
   }
+  next(action)
 }
