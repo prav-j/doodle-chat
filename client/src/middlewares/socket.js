@@ -43,7 +43,11 @@ export default () => {
         break;
       case chatActions.TYPES.sendMessage:
         if (socket !== null) {
-          socket.send(action.payload);
+          socket.send(JSON.stringify({
+            type: 'NEW_MESSAGE',
+            from: store.getState().user.username,
+            data: action.payload
+          }))
         }
         break;
       default:

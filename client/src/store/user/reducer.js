@@ -6,11 +6,25 @@ const INITIAL_STATE = {user: {}}
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPES.signupUser:
-      return update(state, {$set: {loading: true}})
+    case TYPES.loginUser:
+      return update(state, {
+        $set: {
+          username: action.payload.username,
+          loading: true
+        }
+      })
     case TYPES.userLoggedIn:
-      return update(state, {$set: {token: action.payload}})
+      return update(state, {
+        loading: {$set: false},
+        token: {$set: action.payload},
+        $unset: ['error']
+      })
     case TYPES.userLoginFailed:
-      return update(state, {$set: {error: action.payload}})
+      return update(state, {
+        loading: {$set: false},
+        error: {$set: action.payload},
+        $unset: ['token']
+      })
     default:
       return state
   }
