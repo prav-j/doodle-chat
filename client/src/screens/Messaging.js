@@ -12,7 +12,8 @@ const styles = {
   messageArea: {
     display: 'flex',
     flexDirection: 'column-reverse',
-    flexGrow: 1
+    flexGrow: 1,
+    overflowY: 'auto'
   },
   controlPanel: {
     display: 'flex',
