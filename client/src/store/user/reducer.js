@@ -16,14 +16,15 @@ export default (state = INITIAL_STATE, action) => {
     case TYPES.userLoggedIn:
       return update(state, {
         loading: {$set: false},
-        token: {$set: action.payload},
+        token: {$set: action.payload.token},
+        username: {$set: action.payload.username},
         $unset: ['error']
       })
     case TYPES.userLoginFailed:
       return update(state, {
         loading: {$set: false},
         error: {$set: action.payload},
-        $unset: ['token']
+        $unset: ['token', 'username']
       })
     default:
       return state

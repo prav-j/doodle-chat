@@ -7,5 +7,5 @@ export const TYPES = {
 
 export const signupUser = (username, password) => ({type: TYPES.signupUser, payload: {username, password}})
 export const loginUser = (username, password) => ({type: TYPES.loginUser, payload: {username, password}})
-export const userLoggedIn = (token) => ({type: TYPES.userLoggedIn, payload: token})
+export const userLoggedIn = (username, token) => ({type: TYPES.userLoggedIn, payload: {username, token}})
 export const userLoginFailed = (error) => ({type: TYPES.userLoginFailed, payload: error})

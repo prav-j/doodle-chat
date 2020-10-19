@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import {useDispatch, useSelector} from "react-redux";
 import Login from "./screens/Login";
 import {userLoggedIn} from "./store/user/actions";
+import {STORAGE_KEYS} from "./constants";
 
 const styles = {
   root: {
@@ -33,9 +34,10 @@ const App = () => {
   const token = useSelector(state => state.user.token)
 
   useEffect(() => {
-    const storedToken = window.localStorage.getItem('accessToken')
+    const storedToken = window.localStorage.getItem(STORAGE_KEYS.token)
     if (storedToken) {
-      dispatch(userLoggedIn(storedToken))
+      const storedUser = window.localStorage.getItem(STORAGE_KEYS.username)
+      dispatch(userLoggedIn(storedUser, storedToken))
     }
   }, [dispatch])
 
