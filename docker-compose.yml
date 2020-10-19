@@ -3,9 +3,9 @@ services:
   database:
     image: "postgres:12"
     environment:
-      - DB_USER=username
-      - DB_PASSWORD=password
-      - DB_NAME=doodle_chat
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=doodle_chat
     volumes:
       - database-data:/var/lib/postgresql/data/
     ports:
