@@ -14,4 +14,15 @@ object JwtUtils {
             .withExpiresAt(Date(System.currentTimeMillis() + (86400 * 1000)))
             .sign(Algorithm.HMAC256(SECRET))
     }
+
+    fun getUsername(token: String): String? {
+        return try {
+            val decodedJWT = JWT.require(Algorithm.HMAC256(SECRET))
+                .build().verify(token)
+            val username = decodedJWT.getClaim("username")
+            username.asString()
+        } catch (e: Exception) {
+            null
+        }
+    }
 }

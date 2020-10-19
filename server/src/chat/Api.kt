@@ -1,12 +1,13 @@
 package com.praveen.doodle.chat
 
+import com.praveen.doodle.message.MessageService
 import io.ktor.routing.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
 
-fun Route.initializeChatSocketHandler() {
+fun Route.initializeChatSocketHandler(messageService: MessageService) {
     webSocket("/chat") {
-        val handler = Handler(this)
+        val handler = Handler(messageService, this)
         handler.onNewConnection()
         try {
             while (true) {

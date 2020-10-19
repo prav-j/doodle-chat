@@ -3,6 +3,7 @@ package com.praveen.doodle
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.praveen.doodle.chat.initializeChatSocketHandler
 import com.praveen.doodle.database.Database
+import com.praveen.doodle.message.MessageService
 import com.praveen.doodle.user.UserService
 import com.praveen.doodle.user.users
 import io.ktor.application.*
@@ -72,13 +73,14 @@ fun Application.module() {
 
     Database.init()
     val userService = UserService()
+    val messageService = MessageService(userService)
 
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 
-        initializeChatSocketHandler()
+        initializeChatSocketHandler(messageService)
         users(userService)
     }
 }
