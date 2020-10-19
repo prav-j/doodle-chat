@@ -14,6 +14,6 @@ data class Message(
 
 object Messages : UUIDTable("messages") {
     val content = text("content")
-    val user = uuid("user").references(Users.id)
+    val user = varchar("sent_by", 100).references(Users.username)
     val sentAt = datetime("sent_at").default(LocalDateTime.now())
 }

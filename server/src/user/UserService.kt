@@ -39,15 +39,4 @@ class UserService {
             JwtUtils.sign(fetchedUser[Users.id].value, username)
         }
     }
-
-    suspend fun getUserByUsername(username: String): User? {
-        return dbQuery {
-            val users = Users.select { Users.username eq username }.toList()
-            if (users.isEmpty()) {
-                return@dbQuery null
-            }
-            val fetchedUser = users[0]
-            User(fetchedUser[Users.id].value, fetchedUser[Users.username])
-        }
-    }
 }

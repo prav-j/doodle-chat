@@ -73,7 +73,7 @@ fun Application.module() {
 
     Database.init()
     val userService = UserService()
-    val messageService = MessageService(userService)
+    val messageService = MessageService()
 
     routing {
         get("/") {
