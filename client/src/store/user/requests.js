@@ -7,6 +7,7 @@ const handleLoginResponse = response => {
     if (response.status >= 400) {
       return userLoginFailed(body.error)
     }
+    window.localStorage.setItem('accessToken', body.token)
     return userLoggedIn(body.token)
   });
 };

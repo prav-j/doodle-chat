@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {hot} from 'react-hot-loader';
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Messaging from "./screens/Messaging";
 import Box from "@material-ui/core/Box";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Login from "./screens/Login";
+import {userLoggedIn} from "./store/user/actions";
 
 const styles = {
   root: {
@@ -28,7 +29,15 @@ const styles = {
 }
 
 const App = () => {
+  const dispatch = useDispatch()
   const token = useSelector(state => state.user.token)
+
+  useEffect(() => {
+    const storedToken = window.localStorage.getItem('accessToken')
+    if (storedToken) {
+      dispatch(userLoggedIn(storedToken))
+    }
+  }, [dispatch])
 
   return <div style={styles.root}>
     <Container maxWidth="sm">
