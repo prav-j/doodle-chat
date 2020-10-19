@@ -11,7 +11,6 @@ object JwtUtils {
         return JWT.create()
             .withClaim("id", id.toString())
             .withClaim("username", username)
-            .withExpiresAt(Date(System.currentTimeMillis() + (86400 * 1000)))
             .sign(Algorithm.HMAC256(SECRET))
     }
 
