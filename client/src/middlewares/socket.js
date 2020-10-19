@@ -50,7 +50,7 @@ export default () => {
         const isReady = prepareSocket(store)
         const message = JSON.stringify({
           type: 'NEW_MESSAGE',
-          from: store.getState().user.username || "anonymous",
+          token: store.getState().user.token,
           data: action.payload
         });
         if (isReady) {
