@@ -24,7 +24,7 @@ fun Route.users(userService: UserService) {
                 return@post
             }
             try {
-                val token = userService.signUpNewUser(User(request.username!!, request.password!!))
+                val token = userService.signUpNewUser(request.username!!, request.password!!)
                 call.respond(HttpStatusCode.Created, mapOf("username" to request.username, "token" to token))
             } catch (e: Exception) {
                 call.respond(HttpStatusCode.BadRequest, mapOf("error" to e.message))
@@ -38,7 +38,7 @@ fun Route.users(userService: UserService) {
                 return@post
             }
             try {
-                val token = userService.loginUser(User(request.username!!, request.password!!))
+                val token = userService.loginUser(request.username!!, request.password!!)
                 call.respond(HttpStatusCode.Created, mapOf("username" to request.username, "token" to token))
             } catch (e: Exception) {
                 call.respond(HttpStatusCode.BadRequest, mapOf("error" to e.message))
