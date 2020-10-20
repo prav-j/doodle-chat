@@ -21,7 +21,7 @@ export default () => {
 
   const onMessage = store => (event) => {
     const receivedMessage = event.data;
-    store.dispatch(chatActions.messageReceived(receivedMessage))
+    store.dispatch(chatActions.messageReceived(JSON.parse(receivedMessage)))
   };
 
   const prepareSocket = (store) => {

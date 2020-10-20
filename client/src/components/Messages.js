@@ -5,7 +5,6 @@ import Message from "./Message";
 export default () => {
   const messages = useSelector(state => state.chat.messages)
   return <>{messages
-    .map(message => JSON.parse(message))
     .map(message => <Message from={message.sentBy} message={message.content}/>)}
   </>
 }
