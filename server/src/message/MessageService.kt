@@ -12,6 +12,7 @@ class MessageService {
             Messages.insert {
                 it[this.content] = message.content
                 it[this.user] = message.sentBy
+                it[this.sentAt] = message.sentAt
             }
         }
     }
