@@ -2,6 +2,7 @@ package com.praveen.doodle.user
 
 import com.praveen.doodle.database.Database.dbQuery
 import com.praveen.doodle.utils.JwtUtils
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import org.mindrot.jbcrypt.BCrypt
@@ -26,17 +27,24 @@ class UserService {
         }
     }
 
-    suspend fun loginUser(username: String, password: String): String {
+    private suspend fun getUser(username: String): ResultRow? {
         return dbQuery {
             val users = Users.select { Users.username eq username }.toList()
-            if (users.isEmpty()) {
-                throw IncorrectCredentialsException()
-            }
-            val fetchedUser = users[0]
-            if (!checkpw(password, fetchedUser[Users.password])) {
-                throw IncorrectCredentialsException()
-            }
-            JwtUtils.sign(fetchedUser[Users.id].value, username)
+            if (users.isEmpty()) return@dbQuery null
+            return@dbQuery users[0]
         }
+    }
+
+    suspend fun loginUser(username: String, password: String): String {
+        val user = this.getUser(username) ?: throw IncorrectCredentialsException()
+        if (!checkpw(password, user[Users.password])) {
+            throw IncorrectCredentialsException()
+        }
+        return JwtUtils.sign(user[Users.id].value, username)
+    }
+
+    suspend fun getUserByUsername(username: String): User? {
+        val user = getUser(username) ?: return null
+        return User(user[Users.id].value, user[Users.username])
     }
 }

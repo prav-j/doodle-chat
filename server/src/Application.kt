@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.praveen.doodle.chat.initializeChatSocketHandler
 import com.praveen.doodle.database.Database
 import com.praveen.doodle.message.MessageService
+import com.praveen.doodle.message.fetchRecentMessages
 import com.praveen.doodle.user.UserService
 import com.praveen.doodle.user.users
+import com.praveen.doodle.utils.JwtUtils
 import io.ktor.application.*
 import io.ktor.auth.*
+import io.ktor.auth.jwt.*
 import io.ktor.client.*
 import io.ktor.client.features.auth.*
 import io.ktor.client.features.json.*
@@ -36,9 +39,6 @@ fun Application.module() {
         timeout = Duration.ofSeconds(15)
         maxFrameSize = Long.MAX_VALUE
         masking = false
-    }
-
-    install(Authentication) {
     }
 
     install(ContentNegotiation) {
@@ -74,6 +74,17 @@ fun Application.module() {
     Database.init()
     val userService = UserService()
     val messageService = MessageService()
+
+    install(Authentication) {
+        jwt {
+            verifier(JwtUtils.verifier)
+            validate {
+                val user = it.payload
+                    .getClaim("username")
+                if (user.isNull) null else userService.getUserByUsername(user.asString())
+            }
+        }
+    }
 
     routing {
         get("/") {
