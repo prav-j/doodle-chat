@@ -19,13 +19,26 @@ const styles = {
     justifyContent: 'flex-end'
   }
 }
-export default ({from, message}) => {
+
+const formatDate = (date) => {
+  return `${date.getDate()}`.padStart(2, '0')
+    + '/'
+    + `${date.getMonth()}`.padStart(2, '0')
+    + ' '
+    + `${date.getHours()}`.padStart(2, '0')
+    + ':'
+    + `${date.getMinutes()}`.padStart(2, '0')
+}
+
+export default ({from, message, sentAt}) => {
   const theme = useTheme()
   const user = useSelector(state => state.user.username)
-  return <div style={{...styles.container, ...(from === user ? styles.selfMessage : {})}}>
+  const sentBySelf = from === user
+  return <div style={{...styles.container, ...(sentBySelf ? styles.selfMessage : {})}}>
     <Paper style={styles.message(theme)}>
-      <Typography variant="body2">{from}</Typography>
+      <Typography variant="body2">{sentBySelf ? 'You' : from}</Typography>
       <Typography variant="body1">{message}</Typography>
+      <Typography variant="body2" align="right">{formatDate(new Date(sentAt))}</Typography>
     </Paper>
   </div>
 }
