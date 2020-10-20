@@ -93,5 +93,9 @@ fun Application.module() {
 
         initializeChatSocketHandler(messageService)
         users(userService)
+
+        authenticate {
+            fetchRecentMessages(messageService)
+        }
     }
 }
