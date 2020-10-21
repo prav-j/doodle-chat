@@ -17,7 +17,8 @@ apply plugin: 'application'
 
 group 'com.praveen.doodle'
 version '0.0.1'
-mainClassName = "io.ktor.server.netty.EngineMain"
+mainClassName = "com.praveen.doodle.ApplicationKt"
+archivesBaseName = 'doodle-chat-api'
 
 sourceSets {
     main.kotlin.srcDirs = main.java.srcDirs = ['src']
