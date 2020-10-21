@@ -1,7 +1,7 @@
 import * as socketActions from '../store/socket/actions'
 import * as chatActions from "../store/chat/actions";
+import {SOCKET_HOST as HOST} from "../config";
 
-const HOST = 'ws://localhost:8080/chat'
 export default () => {
   let socket = null;
   const pendingMessages = []

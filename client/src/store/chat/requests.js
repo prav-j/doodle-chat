@@ -1,7 +1,6 @@
 import {fetchMessageError, fetchMessageSuccess} from "./actions";
 import {TYPES as userTypes} from "../user/actions";
-
-const HOST = 'http://localhost:8080'
+import {REQUEST_HOST as HOST} from "../../config";
 
 export const fetchMessages = (token, since) => {
   return fetch(`${HOST}/messages${since ? `since=${since}` : ''}`, {
@@ -26,7 +25,7 @@ export default store => next => action => {
   switch (action.type) {
     case userTypes.userLoggedIn:
       const latestMessage = store.getState().chat.messages[0]
-      const since = latestMessage ? JSON.parse(latestMessage).sentAt : undefined
+      const since = latestMessage ? latestMessage.sentAt : undefined
       fetchMessages(action.payload.token, since).then(action => store.dispatch(action))
       break
   }

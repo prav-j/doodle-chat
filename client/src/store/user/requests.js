@@ -1,7 +1,6 @@
 import {TYPES, userLoggedIn, userLoginFailed} from "./actions";
 import {STORAGE_KEYS} from "../../constants";
-
-const HOST = 'http://localhost:8080'
+import {REQUEST_HOST as HOST} from "../../config";
 
 const handleLoginResponse = response => {
   return response.json().then(body => {
