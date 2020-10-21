@@ -1,6 +1,7 @@
 {
   "name": "chat-client",
   "version": "0.0.1",
+  "license": "MIT",
   "description": "Simple chat client with React",
   "main": "index.js",
   "scripts": {
