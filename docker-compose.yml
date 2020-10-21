@@ -1,5 +1,13 @@
 version: '3'
 services:
+  doodle-chat-ui:
+    container_name: doodle-chat-ui
+    build: ./client
+    ports:
+      - 80:80
+    depends_on:
+      - doodle-chat-api
+
   doodle-chat-api:
     container_name: doodle-chat-api
     build: ./server
