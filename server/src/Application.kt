@@ -33,7 +33,7 @@ fun main() {
     ).apply { start(wait = true) }
 }
 
-fun Application.module() {
+fun Application.module(test: Boolean = false) {
     install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)
         timeout = Duration.ofSeconds(15)
@@ -71,7 +71,9 @@ fun Application.module() {
         */
     }
 
-    Database.init()
+    if (!test) {
+        Database.init()
+    }
     val userService = UserService()
     val messageService = MessageService()
 
