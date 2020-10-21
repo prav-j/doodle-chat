@@ -13,6 +13,15 @@ const styles = {
   hidden: {
     opacity: 0
   },
+  container: {
+    paddingTop: '5em',
+    paddingBottom: '5em',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    width: '100%'
+  },
   usernameField: {marginBottom: '4em'},
   passwordField: {marginBottom: '2em'},
   errorField: {marginBottom: '1em'},
@@ -30,7 +39,7 @@ export default () => {
   const error = useSelector(state => state.user.error)
   const dispatch = useDispatch()
 
-  return <>
+  return <div style={styles.container}>
     <TextField
       style={{...styles.field, ...styles.usernameField}}
       label="Username"
@@ -52,5 +61,5 @@ export default () => {
       <Button variant="contained" onClick={() => dispatch(signupUser(username, password))}>Sign up</Button>
       <Button variant="contained" onClick={() => dispatch(loginUser(username, password))}>Login</Button>
     </Box>
-  </>
+  </div>
 }
