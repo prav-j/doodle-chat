@@ -29,7 +29,8 @@ import java.time.Duration
 fun main() {
     embeddedServer(
         Netty,
-        module = Application::module
+        module = Application::module,
+        port = System.getenv("PORT").let { if (it.isNullOrEmpty()) 8080 else it.toInt() }
     ).apply { start(wait = true) }
 }
 
