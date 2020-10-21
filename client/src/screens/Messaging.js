@@ -5,7 +5,7 @@ import SendMessage from "../components/SendMessage";
 const styles = {
   container: {
     display: 'flex',
-    height: '100%',
+    height: '100vh',
     width: '100%',
     flexDirection: 'column'
   },
