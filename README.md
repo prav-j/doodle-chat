@@ -20,6 +20,7 @@ For API, run
 cd ./server
 DB_HOST=<your postgres DB host:PORT> gradle run
 ```
+UI runs on port 3000, API on 8080 by default.
 
 Usage:
 - For signup, pick a username and password (no restrictions on them - just not blank)
